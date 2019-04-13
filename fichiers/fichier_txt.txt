@@ -1,0 +1,4 @@
+a <- 0
+AFFICHER a
+a <- 785
+AFFICHER a
