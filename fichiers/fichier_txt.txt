@@ -1,9 +1,6 @@
 a <- 0
 AFFICHER a
-SI a = 0
-    a <- 150
-    SI a = 150
-        AFFICHER "bonjour a tous"
-    FIN_SI
+DEBUT_SI a = 0
+    b <- 10
 FIN_SI
-AFFICHER a
+AFFICHER b

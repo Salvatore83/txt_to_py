@@ -8,12 +8,13 @@ class Programme():
         except:
             quit()
         self.content = ""
-        self.avant = ""
+        self.avant = "\t"
         self.ligne = ""
         self.fin_ligne = ""
+        self.nombre_indentation = [1]
         self.dictionnaire_fonction = {"AFFICHER":"print( "}
-        self.dictionnaire_conditions = {"SINON_SI":"elif ", "SI":"if "}
-        self.dictionnaire_boucle = {"DEBUT_TANT_QUE":"for", "DEBUT_POUR":"while"}
+        self.dictionnaire_conditions = {"SINON_SI":"elif ", "DEBUT_SI":"if "}
+        self.dictionnaire_boucle = {"DEBUT_TANT_QUE":"for ", "DEBUT_POUR":"while "}
         self.dictionnaire_symboles = {'+':"+ ", "-":"- ", "/":"/ ", ",":", ", "<":"<", ">":"> ", "=":"== ", "!=":"!= ", "<=":"<= ", ">=":">= "}
     def _ouvrir_fichier(self):
         try:
@@ -34,7 +35,7 @@ class Programme():
     def _ecrire_debut_fichier_python(self):
         self._ecrire_fichier_py("# Ce fichier python a ete ecrit pas un convertisseur .txt to .py_" + "\n")
         self._ecrire_fichier_py("def main():")
-        self.avant = "  "
+        self.avant = "\t"
 
     def _ecrire_fin_fichier_python(self):
         self._ecrire_fichier_py("\n" + "if __name__ == '__main__':")
@@ -51,7 +52,6 @@ class Programme():
             pass
 
     def _definir_ligne(self, mot):
-        print(mot)
         try:
             mot = int(mot)
         except:
@@ -63,12 +63,21 @@ class Programme():
         elif type(mot) == int:
             self.ligne = self.ligne + str(mot) + " "
         elif "FIN" in mot:
-            nombre = len(self.avant)
-            self.avant = self.avant[:(nombre - 4)]
+            self.nombre_indentation.remove(1)
+            i = 0
+            while i < len(self.nombre_indentation) - 1:
+                self.avant = self.avant + "\t"
+                i += 1
         elif mot in self.dictionnaire_conditions:
+            self.nombre_indentation.append(1)
             self.fin_ligne = ":"
             self.ligne = self.ligne + self.dictionnaire_conditions[mot]
-            self.avant = self.avant + "    "
+            self.avant = self.avant + "\t"
+        elif mot in self.dictionnaire_boucle:
+            self.nombre_indentation.append(1)
+            self.fin_ligne = ":"
+            self.ligne = self.ligne + self.dictionnaire_boucle[mot]
+            self.avant = self.avant + "\t"
         else:
             if self._savoir_si_MAJ(mot) == True:
                 self._fonction_definir(mot)
@@ -90,6 +99,7 @@ class Programme():
                 self.ligne = ""
                 self.fin_ligne = ""
                 self.debut = self.avant
+                print(self.nombre_indentation)
         else:
             self._ecrire_fichier_py(self.avant + "pass")
         self._ecrire_fin_fichier_python()
