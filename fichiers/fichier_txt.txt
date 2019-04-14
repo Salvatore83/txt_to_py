@@ -1,4 +1,6 @@
 a <- 0
 AFFICHER a
-a <- 785
-AFFICHER a
+a <- a + 150
+b <- a + a
+c <- 0
+AFFICHER a, b, c
