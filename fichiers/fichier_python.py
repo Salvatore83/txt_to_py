@@ -3,10 +3,13 @@
 def main():
   a = 0 
   print( a )
-  a = a + 150 
-  b = a + a 
-  c = 0 
-  print( a, b, c )
+  if a == 0 :
+      a = 150 
+      if a == 150 :
+          print( "bonjour a tous" )
+          
+      
+  print( a )
 
 if __name__ == '__main__':
    main()

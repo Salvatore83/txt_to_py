@@ -12,8 +12,9 @@ class Programme():
         self.ligne = ""
         self.fin_ligne = ""
         self.dictionnaire_fonction = {"AFFICHER":"print( "}
+        self.dictionnaire_conditions = {"SINON_SI":"elif ", "SI":"if "}
         self.dictionnaire_boucle = {"DEBUT_TANT_QUE":"for", "DEBUT_POUR":"while"}
-        self.dictionnaire_symboles = {'+':"+ ", "-":"- ", "/":"/ ", ",":", "}
+        self.dictionnaire_symboles = {'+':"+ ", "-":"- ", "/":"/ ", ",":", ", "<":"<", ">":"> ", "=":"== ", "!=":"!= ", "<=":"<= ", ">=":">= "}
     def _ouvrir_fichier(self):
         try:
             self.fichier_txt = open("fichiers/fichier_txt.txt", "r")
@@ -50,7 +51,7 @@ class Programme():
             pass
 
     def _definir_ligne(self, mot):
-        # print(mot)
+        print(mot)
         try:
             mot = int(mot)
         except:
@@ -61,6 +62,13 @@ class Programme():
             self.ligne = self.ligne + self.dictionnaire_symboles[mot]
         elif type(mot) == int:
             self.ligne = self.ligne + str(mot) + " "
+        elif "FIN" in mot:
+            nombre = len(self.avant)
+            self.avant = self.avant[:(nombre - 4)]
+        elif mot in self.dictionnaire_conditions:
+            self.fin_ligne = ":"
+            self.ligne = self.ligne + self.dictionnaire_conditions[mot]
+            self.avant = self.avant + "    "
         else:
             if self._savoir_si_MAJ(mot) == True:
                 self._fonction_definir(mot)
@@ -70,6 +78,7 @@ class Programme():
 
     def _traitement(self):
         self._ecrire_debut_fichier_python()
+        self.debut = self.avant
         if os.stat("fichiers/fichier_txt.txt").st_size != 0:
             for ligne in self.fichier_txt:
                 self.content = ligne
@@ -77,9 +86,10 @@ class Programme():
                 self._creer_liste(self.content)
                 for mot in self.liste:
                     self._definir_ligne(mot)
-                self._ecrire_fichier_py(self.avant + self.ligne + self.fin_ligne)
+                self._ecrire_fichier_py(self.debut + self.ligne + self.fin_ligne)
                 self.ligne = ""
                 self.fin_ligne = ""
+                self.debut = self.avant
         else:
             self._ecrire_fichier_py(self.avant + "pass")
         self._ecrire_fin_fichier_python()
