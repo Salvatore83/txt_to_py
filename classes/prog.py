@@ -14,8 +14,8 @@ class Programme():
         self.nombre_indentation = [1]
         self.dictionnaire_fonction = {"AFFICHER":"print( "}
         self.dictionnaire_conditions = {"SINON_SI":"elif ", "DEBUT_SI":"if "}
-        self.dictionnaire_boucle = {"DEBUT_TANT_QUE":"for ", "DEBUT_POUR":"while "}
-        self.dictionnaire_symboles = {'+':"+ ", "-":"- ", "/":"/ ", ",":", ", "<":"<", ">":"> ", "=":"== ", "!=":"!= ", "<=":"<= ", ">=":">= "}
+        self.dictionnaire_boucle = {"DEBUT_TANT_QUE":"while ", "DEBUT_POUR":"for "}
+        self.dictionnaire_symboles = {'+':"+ ", "-":"- ", "/":"/ ", ",":", ", "<":"<", ">":"> ", "=":"== ", "!=":"!= ", "<=":"<= ", ">=":">= ", "%":"% "}
     def _ouvrir_fichier(self):
         try:
             self.fichier_txt = open("fichiers/fichier_txt.txt", "r")
@@ -39,7 +39,7 @@ class Programme():
 
     def _ecrire_fin_fichier_python(self):
         self._ecrire_fichier_py("\n" + "if __name__ == '__main__':")
-        self._ecrire_fichier_py("   main()")
+        self._ecrire_fichier_py("\tmain()")
 
 
     def _fonction_definir(self, mot):

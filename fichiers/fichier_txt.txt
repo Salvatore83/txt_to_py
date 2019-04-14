@@ -1,6 +1,9 @@
 a <- 0
-AFFICHER a
-DEBUT_SI a = 0
-    b <- 10
+DEBUT_TANT_QUE
+    a <- a + 2
+FIN_TANT_QUE
+AFFICHER
+DEBUT_SI a % 2 = 0
+    AFFICHER "Il me semble que a est un nombre pair"
 FIN_SI
-AFFICHER b
+

@@ -2,11 +2,14 @@
 
 def main():
 	a = 0 
-	print( a )
-	if a == 0 :
-		b = 10 
+	
+	a = a + 2 
+	
+	
+	if a % 2 == 0 :
+		print( "Il me semble que a est un nombre pair" )
 		
-		print( b )
+		
 
 if __name__ == '__main__':
-   main()
+	main()
